@@ -120,8 +120,11 @@ load_dotenv()
 # Получаем название AI-модели
 model_name = os.getenv("MODEL_NAME")
 
-# Создаем модель
-model = ChatOpenAI(model=model_name)
+# Создаем модель без обязательного API-ключа при импорте
+if os.getenv("OPENAI_API_KEY"):
+    model = ChatOpenAI(model=model_name)
+else:
+    model = None
 
 # Создаем список наших инструментов
 tools = [
@@ -130,8 +133,8 @@ tools = [
     prepare_ticket
 ]
 
-# Подключаем инструменты к модели
-model_with_tools = model.bind_tools(tools)
+# Подключаем инструменты, если модель доступна
+model_with_tools = model.bind_tools(tools) if model else None
 
 # Создаем узел для выполнения инструментов
 tool_node = ToolNode(tools)

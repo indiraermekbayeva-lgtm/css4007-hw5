@@ -161,3 +161,125 @@ Push your finished work to your public fork and submit its link on the LMS. The 
 - [LangGraph memory](https://docs.langchain.com/oss/python/langgraph/add-memory)
 
 
+---
+
+## My Implementation — Setup and Run
+
+### Python version
+
+This project was developed using Python 3.12.0.
+
+### Installation
+
+Clone the repository and open the project folder.
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Activate it on Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install the required packages:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### API key configuration
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and add your OpenAI API key and model name.
+
+The `.env` file is ignored by Git and must not be committed.
+
+Part 1 does not need an API key. Parts 2 and 3 use an OpenAI model.
+
+### Run the examples
+
+Run the fixed routing graph:
+
+```bash
+python part1.py
+```
+
+Run the original routing graph:
+
+```bash
+python part1_original.py
+```
+
+Run the model and tools:
+
+```bash
+python part2.py
+```
+
+Run conversation memory:
+
+```bash
+python part3.py
+```
+
+Save a user language preference:
+
+```bash
+python user_memory.py
+```
+
+Test saved conversation memory:
+
+```bash
+python check_memory.py
+```
+
+Test user preferences and separate conversations:
+
+```bash
+python test_user_memory.py
+```
+
+### Memory storage
+
+Conversation memory and user preferences are saved in:
+
+`outputs/memory.db`
+
+The application uses SQLite for persistent storage.
+
+To clear the saved memory, close the program and delete `outputs/memory.db`.
+
+The database is created again when the memory program starts.
+
+### Execution logs
+
+Saved execution traces are available in the `outputs/` folder.
+
+- `part1_trace.txt` — fixed routing.
+- `part1_original_trace.txt` — original routing.
+- `part2_trace.txt` — model and tools.
+- `part3_restart_trace.txt` — persistent conversation memory.
+- `part3_users_trace.txt` — separate users and language preferences.
+
+### Test data
+
+The project uses fictional information from the `data/` folder.
+
+No real university services are accessed, and tickets are local drafts only.
+

@@ -1,0 +1,12 @@
+
+User: demo-user-a
+Thread: s11
+Saved language: Kazakh
+AI Answer:
+Сәлеметсіз бе! Әрине, сізге қалай көмектесе аламын? Қандай мәселе туындады?
+
+User: demo-user-b
+Thread: s12
+Saved language: None
+AI Answer:
+Hello! Yes, I can help you. Please let me know what issue or question you have, and I'll do my best to assist you.

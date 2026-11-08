@@ -1,0 +1,32 @@
+
+Message: I cannot connect to Wi-Fi.
+State: {'message': 'I cannot connect to Wi-Fi.', 'category': '', 'reply': ''}
+Node: read_request
+State: {'message': 'I cannot connect to Wi-Fi.', 'category': 'wifi', 'reply': ''}
+Node: wifi_help
+State: {'message': 'I cannot connect to Wi-Fi.', 'category': 'wifi', 'reply': 'Check that Wi-Fi is enabled and airplane mode is off.\nSelect the fictional Campus-Demo network.\nIf connection fails, forget the saved network and try connecting again.\nIf the problem remains, check the service status before preparing a ticket.'}
+--------------------
+
+Message: I forgot my PASSWORD.
+State: {'message': 'I forgot my PASSWORD.', 'category': '', 'reply': ''}
+Node: read_request
+State: {'message': 'I forgot my PASSWORD.', 'category': 'password', 'reply': ''}
+Node: password_help
+State: {'message': 'I forgot my PASSWORD.', 'category': 'password', 'reply': 'Open the practice sign-in screen and choose Forgot password.\nFollow the recovery instructions shown by the practice application.\nIf recovery is unavailable, prepare a ticket describing the error.\nNever include a password or recovery code in a ticket.'}
+--------------------
+
+Message: My laptop screen is broken.
+State: {'message': 'My laptop screen is broken.', 'category': '', 'reply': ''}
+Node: read_request
+State: {'message': 'My laptop screen is broken.', 'category': 'other', 'reply': ''}
+Node: other_help
+State: {'message': 'My laptop screen is broken.', 'category': 'other', 'reply': 'Is your problem about Wi-Fi or password?'}
+--------------------
+
+Message: My Wi-Fi password does not work.
+State: {'message': 'My Wi-Fi password does not work.', 'category': '', 'reply': ''}
+Node: read_request
+State: {'message': 'My Wi-Fi password does not work.', 'category': 'clarify', 'reply': ''}
+Node: clarify_problem
+State: {'message': 'My Wi-Fi password does not work.', 'category': 'clarify', 'reply': 'Do you need help with Wi-Fi or password first?'}
+--------------------

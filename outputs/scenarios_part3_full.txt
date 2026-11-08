@@ -1,0 +1,82 @@
+
+========== S10 ==========
+
+SCENARIO S10, PROCESS 1
+USER: demo-user-a
+THREAD: s10
+SAVED LANGUAGE: None
+MESSAGE: I cannot connect to Wi-Fi. I enabled it and forgot the saved network, but reconnecting failed.
+Model requests: prepare_ticket
+Arguments: {'problem': 'Wi-Fi connection issue', 'steps_tried': ['Enabled Wi-Fi', 'Forgot saved network', 'Attempted reconnect'], 'category': 'Wi-Fi'}
+Tool result: Ticket draft saved: /Users/indiraermekbaeva/Documents/css4007-hw5/outputs/tickets/a75207a0.json
+Model requests: find_instructions
+Arguments: {'topic': 'Wi-Fi connection'}
+Tool result: Check that Wi-Fi is enabled and airplane mode is off.
+Select the fictional Campus-Demo network.
+If connection fails, forget the saved network and try connecting again.
+If the problem remains, check the service status before preparing a ticket.
+ANSWER: You have enabled Wi-Fi and forgot the saved network, then tried reconnecting. The next thing to confirm is that airplane mode is off. When reconnecting, be sure to select the correct network (usually named something like Campus-Demo). If this doesn't help, we might check the Wi-Fi service status to see if there is an ongoing issue. Would you like me to check the service status for you?
+--------------------------------------------------
+USER: demo-user-a
+THREAD: s10
+SAVED LANGUAGE: None
+MESSAGE: Which steps did I already try?
+ANSWER: You have already tried enabling Wi-Fi, forgetting the saved network, and attempting to reconnect.
+--------------------------------------------------
+
+========== S11 ==========
+
+SCENARIO S11, PROCESS 1
+USER: demo-user-a
+THREAD: restart-a
+SAVED LANGUAGE: Kazakh
+MESSAGE: Please remember that I prefer replies in Kazakh. My issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.
+Model requests: prepare_ticket
+Arguments: {'problem': 'Wi-Fi connection issue', 'steps_tried': ['Enabled Wi-Fi', 'Tried reconnecting'], 'category': 'Wi-Fi'}
+Tool result: Ticket draft saved: /Users/indiraermekbaeva/Documents/css4007-hw5/outputs/tickets/a6db17c2.json
+ANSWER: Сіздің Wi-Fi мәселеңізді ескеріп, келесі әрекеттерді орындағаныңызды жаздым: Wi-Fi-ны қосу және қайта қосылуға тырысу. Егер қосымша көмек қажет болса, хабарласыңыз.
+--------------------------------------------------
+
+SCENARIO S11, PROCESS 2
+USER: demo-user-a
+THREAD: restart-a
+SAVED LANGUAGE: Kazakh
+MESSAGE: Which problem and steps did we discuss?
+ANSWER: Сіз Wi-Fi мәселесі туралы айттыңыз. Сіз Wi-Fi-ны қостыңыз және қайта қосылуға тырыстыңыз.
+--------------------------------------------------
+
+========== S12 ==========
+
+SCENARIO S12, PROCESS 1
+USER: demo-user-a
+THREAD: preference-a1
+SAVED LANGUAGE: Kazakh
+MESSAGE: Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.
+ANSWER: Әрине, сіздің Wi-Fi мәселеңіз туралы толығырақ айтыңызшы. Қандай проблемаға тап болдыңыз? Мысалы, желіге қосыла алмайсыз ба, әлде сигнал әлсіз бе? Қандай қадамдар жасадыңыз?
+--------------------------------------------------
+
+SCENARIO S12, PROCESS 2
+USER: demo-user-a
+THREAD: preference-a2
+SAVED LANGUAGE: Kazakh
+MESSAGE: Which language did I ask you to use? What can you help with?
+ANSWER: Сіз маған қазақ тілін пайдалануымды сұрадыңыз. Мен университеттің IT көмегімен байланысты мәселелер бойынша көмектесе аламын, мысалы, Wi-Fi проблемалары, парольдерді қалпына келтіру және басқа техникалық қолдау сұрақтары. Қалай көмек керек екенін айтыңыз.
+--------------------------------------------------
+
+========== S13 ==========
+
+SCENARIO S13, PROCESS 1
+USER: demo-user-a
+THREAD: isolation-a
+SAVED LANGUAGE: Kazakh
+MESSAGE: Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.
+ANSWER: Wi-Fi мәселеңізді шешуге көмектесуге дайынмын. Қандай қиындықтар туындап жатыр? Мысалы, Wi-Fi желісін көрмейсіз бе, әлде қосыла алмайсыз ба? Немесе парольмен байланысты проблема бар ма? Тәжірибеңіз бойынша қандай қадамдарды жасағаныңызды да айтыңызшы.
+--------------------------------------------------
+USER: demo-user-b
+THREAD: isolation-b
+SAVED LANGUAGE: None
+MESSAGE: Have I told you a preferred language or a previous problem?
+ANSWER: You have not told me any preferred language or mentioned a previous problem so far. How can I assist you today?
+--------------------------------------------------
+
+ALL MEMORY SCENARIOS FINISHED

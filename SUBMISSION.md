@@ -332,27 +332,122 @@ Remembering the preferred language is **memory** because the preference was save
 
 ## Part 4 — Running and checking my work
 
-TODO: point to the README setup steps, package versions, memory-reset instructions, tests and GitHub Actions workflow. Explain which mistake each test catches and which runs use a fake model.
+My project uses Python 3.12.0, LangGraph, LangChain, OpenAI and SQLite.
+
+The `README.md` file explains how to install packages, configure the API key, and run the project. The `requirements.txt` file contains the package versions.
+
+I store my OpenAI API key in `.env`. This file is excluded from Git using `.gitignore`.
+
+### Memory storage and reset
+
+I use SQLite to save conversation history and user preferences.
+
+- `outputs/memory.db` — memory for Part 3.
+- `outputs/scenario_memory.db` — memory for scenario demonstrations.
+
+To clear the scenario memory, I can delete `outputs/scenario_memory.db`. My scenario runner also resets this database before each scenario.
+
+### Automated tests
+
+I created two test files:
+
+- `tests/test_helpdesk.py`
+- `tests/test_memory.py`
+
+My tests check:
+
+1. **Routing:** Detects incorrect Wi-Fi, password or unsupported-request routing.
+2. **Instructions:** Detects missing or incorrect troubleshooting instructions.
+3. **Service status:** Detects incorrect status results and unknown profiles.
+4. **Ticket creation:** Checks that a local JSON ticket is created.
+5. **Memory persistence:** Checks that saved state can be read after reopening the SQLite connection.
+6. **Thread isolation:** Checks that different conversations do not share messages.
+7. **User isolation:** Checks that different users do not share preferences.
+
+I ran the tests using:
+
+```bash
+python -m pytest tests/ -v
+```
+
+All 9 automated tests passed.
+
+The automated tests do not call the real OpenAI model. They check functions and SQLite storage without an API key. I used the real model separately for the Part 2 and Part 3 demonstrations.
+
+### GitHub Actions
+
+I created `.github/workflows/tests.yml`.
+
+GitHub Actions automatically:
+
+1. Installs Python 3.12.
+2. Installs packages from `requirements.txt`.
+3. Runs the automated tests without an API key.
+
+The workflow completed successfully on GitHub.
+
+I also made separate commits for implementation, documentation and tests.
+
+---
 
 ## Choices and limitations
 
-TODO: explain the storage and libraries I chose, why they fit this task, and what still does not work reliably.
+### My technical choices
+
+I selected **LangGraph** because it supports nodes, conditional routing, tool execution and conversation memory.
+
+I used **LangChain** to connect the OpenAI model with my tools.
+
+I used **GPT-4.1-mini** because it supports tool calling.
+
+I selected **SQLite** because it saves information locally and keeps data after the program stops. It does not require a separate database server.
+
+I saved language preferences using `user_id`. I separated conversation history using both `user_id` and `thread_id`.
+
+I used local JSON files for instructions, service status and ticket templates. This allows me to test the application without real university services.
+
+### Limitations
+
+1. The application uses fictional university helpdesk data.
+2. Model responses can change between runs.
+3. The model sometimes creates tickets before the user explicitly requests one.
+4. The model can sometimes confuse recommended steps with completed steps.
+5. SQLite storage is suitable for this demonstration but is not a complete production helpdesk system.
+6. The automated memory test reopens SQLite in the same Python process. I used a separate scenario demonstration to test an actual process restart.
+
+In the future, I could improve the application with stronger tool rules, additional validation and more automated tests.
+
+---
 
 ## Supplied scenarios — my actual results
 
 | Scenario | Command or manual steps | Log file | What happened / what I changed |
 | --- | --- | --- | --- |
-| S01 — Simple Wi-Fi route | | | |
-| S02 — Case-insensitive password route | | | |
-| S03 — Unsupported request | | | |
-| S04 — Two topics before the graph change | | | |
-| S05 — Two topics after adding clarification | | | |
-| S06 — Instructions then local ticket | | | |
-| S07 — The same request during a Wi-Fi outage | | | |
-| S08 — Status source unavailable | | | |
-| S09 — Missing ticket details | | | |
-| S10 — Use the current conversation | | | |
-| S11 — Persist and recall after restart | | | |
-| S12 — Preference across threads without replay | | | |
-| S13 — Do not share memory between users | | | |
-| S14 — Password recovery outage | | | |
+| S01 — Simple Wi-Fi route | `python part1_original.py` | `outputs/scenarios_part1_original.txt` | The graph selected `wifi_help` and returned Wi-Fi instructions. |
+| S02 — Case-insensitive password route | `python part1_original.py` | `outputs/scenarios_part1_original.txt` | The graph recognized uppercase PASSWORD and selected `password_help`. |
+| S03 — Unsupported request | `python part1_original.py` | `outputs/scenarios_part1_original.txt` | The graph selected `other_help` and asked for clarification. |
+| S04 — Two topics before the graph change | `python part1_original.py` | `outputs/scenarios_part1_original.txt` | The original graph selected Wi-Fi even though both topics were mentioned. |
+| S05 — Two topics after adding clarification | `python part1.py` | `outputs/scenarios_part1_updated.txt` | The updated graph selected `clarify_problem` and asked which issue to address first. |
+| S06 — Instructions then local ticket | `python part2.py` | `outputs/scenarios_part2.txt` | The model used instructions, checked Wi-Fi status and created local ticket drafts. It also created a ticket too early in the first interaction. |
+| S07 — The same request during a Wi-Fi outage | `python part2.py` | `outputs/scenarios_part2.txt` | The model detected a Wi-Fi outage and did not create a ticket in this demonstration. |
+| S08 — Status source unavailable | `python part2.py` | `outputs/scenarios_part2.txt` | The model reported unknown status and requested permission before creating a ticket. |
+| S09 — Missing ticket details | `python part2.py` | `outputs/scenarios_part2.txt` | The model asked for missing details and created a ticket after receiving them. |
+| S10 — Use the current conversation | `python run_memory_scenarios.py` | `outputs/scenarios_part3_full.txt` | The model remembered that the user enabled Wi-Fi, forgot the saved network and attempted reconnection. |
+| S11 — Persist and recall after restart | `python run_memory_scenarios.py` | `outputs/scenarios_part3_full.txt` | After a process restart, the model remembered the Wi-Fi problem and previous steps. It answered in Kazakh. |
+| S12 — Preference across threads without replay | `python run_memory_scenarios.py` | `outputs/scenarios_part3_full.txt` | The saved Kazakh preference was available in a new conversation after restart. |
+| S13 — Do not share memory between users | `python run_memory_scenarios.py` | `outputs/scenarios_part3_full.txt` | User B did not receive User A's previous problem or language preference. |
+| S14 — Password recovery outage | `python part2.py` | `outputs/scenarios_part2.txt` | The model detected an account-recovery outage and reported that no repair time was available. |
+
+### Final observations
+
+The fixed routing graph worked correctly for simple requests. Adding a clarification node improved the handling of messages containing both Wi-Fi and password topics.
+
+The model-based graph used all three tools. Different service-status profiles changed its decisions.
+
+SQLite preserved conversation history after a process restart. User language preferences were also available across different threads without sharing them with another user.
+
+All 9 automated tests passed locally, and GitHub Actions completed successfully.
+
+The main remaining limitation is that the model can sometimes create unnecessary tickets or make assumptions about completed troubleshooting steps.
+
+The Part 2 logs show the relevant service-profile demonstrations, but they are not a complete automated replay of every event in `data/scenarios.json`.

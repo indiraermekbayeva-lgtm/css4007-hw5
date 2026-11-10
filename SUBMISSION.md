@@ -117,28 +117,17 @@ I connected the AI model to three tools. The model chooses tools based on the us
 
 ### 2. Model and tool execution loop
 
-```text
-START
-  |
-  v
-assistant (AI model)
-  |
-  v
-Does the model request a tool?
-  |
-  +--- YES ---> tools (ToolNode)
-  |                |
-  |                v
-  |           Run Python tool
-  |                |
-  |                v
-  |           Return tool result
-  |                |
-  |                v
-  |             assistant
-  |
-  +--- NO ----> END
+```mermaid
+flowchart TD
+    A([START]) --> B["assistant (AI model)"]
+    B --> C{"Does the model request a tool?"}
+    C -->|YES| D["tools (ToolNode)"]
+    D --> E["Run Python tool"]
+    E --> F["Return tool result"]
+    F --> B
+    C -->|NO| G([END])
 ```
+
 
 The model requests a tool. ToolNode runs the Python function and returns the result. The model can then use another tool or give a final answer.
 

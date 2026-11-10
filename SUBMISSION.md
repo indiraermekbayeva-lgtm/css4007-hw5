@@ -8,10 +8,16 @@ My program uses LangGraph to help students with IT problems.
 
 The original graph has these nodes:
 
-START → read_request
-           ├── wifi_help → END
-           ├── password_help → END
-           └── other_help → END
+```mermaid
+flowchart TD
+    A([START]) --> B[read_request]
+    B -->|Wi-Fi| C[wifi_help]
+    B -->|Password| D[password_help]
+    B -->|Other| E[other_help]
+    C --> F([END])
+    D --> F
+    E --> F
+```
 
 The graph state has three fields:
 
@@ -55,12 +61,17 @@ I added a new node called `clarify_problem`.
 
 The modified graph is:
 
-```text
-START → read_request
-             ├── wifi_help → END
-             ├── password_help → END
-             ├── other_help → END
-             └── clarify_problem → END
+```mermaid
+flowchart TD
+    A([START]) --> B[read_request]
+    B -->|Wi-Fi| C[wifi_help]
+    B -->|Password| D[password_help]
+    B -->|Other| E[other_help]
+    B -->|Wi-Fi + Password| G[clarify_problem]
+    C --> F([END])
+    D --> F
+    E --> F
+    G --> F
 ```
 
 When a message contains both Wi-Fi and password, the graph uses `clarify_problem`.

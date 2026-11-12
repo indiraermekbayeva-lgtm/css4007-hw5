@@ -1,22 +1,87 @@
-My Implementation
 
-This project was completed as part of the Artificial Intelligence course at Narxoz University.
+# 🎓 University IT Helpdesk AI Agent
+
+### Python · LangGraph · LangChain · SQLite · pytest
+
+An AI-powered IT helpdesk assistant developed as part of the **Artificial Intelligence (CSS-4007)** course at **Narxoz University**.
+
+This project demonstrates how to build an AI agent that can process user requests, use external tools, maintain conversation memory, and provide IT support.
+
+---
+
+## 👩‍💻 My Implementation
 
 I independently implemented the following features:
 
-Built an IT helpdesk workflow using Python and LangGraph.
+- **Workflow Design:** Built a LangGraph workflow with nodes and conditional edges.
+- **Request Classification:** Added routing for Wi-Fi, password, and other IT problems.
+- **Tool Integration:** Implemented tools to find instructions, check service status, and prepare support tickets.
+- **AI Integration:** Connected an LLM to generate responses and use tools.
+- **Persistent Memory:** Used SQLite to save conversation state and user preferences.
+- **Automated Testing:** Added tests using pytest to check the system's behavior.
 
-Added conditional routing for different user requests.
+---
 
-Integrated tools for troubleshooting and checking service status.
+## 🛠️ Tech Stack
 
-Implemented persistent conversation memory using SQLite.
+| Category | Technologies |
+|---|---|
+| Programming | Python |
+| AI Framework | LangGraph, LangChain |
+| AI Model | OpenAI API |
+| Database | SQLite |
+| Data Format | JSON |
+| Testing | pytest |
+| Version Control | Git, GitHub |
 
-Created automated tests using pytest.
+---
 
-Technologies: Python, LangGraph, LangChain, SQLite, pytest.
+## ⚙️ How It Works
 
+```mermaid
+flowchart TD
+    A[User Request] --> B[LangGraph Agent]
+    B --> C{Identify Problem}
+    C --> D[Wi-Fi Support]
+    C --> E[Password Support]
+    C --> F[Other IT Requests]
+    D --> G[Tool Execution]
+    E --> G
+    F --> G
+    G --> H[Generate Response]
+    H --> I[Save Conversation State]
+    I --> J[Final Answer]
+```
 
+---
+
+## 🎯 Skills Demonstrated
+
+- Python programming
+- AI agent development
+- Workflow automation
+- Conditional logic and routing
+- Tool integration
+- Conversation memory
+- Automated testing
+- Debugging and problem-solving
+
+---
+
+## 📚 Academic Information
+
+**University:** Narxoz University  
+**Course:** CSS-4007 — Artificial Intelligence  
+**Project:** Homework 5 — IT Helpdesk Agent  
+**Type:** Individual University Assignment
+
+---
+
+## 📄 Original Assignment
+
+The original assignment instructions, setup requirements, and project specifications are provided below.
+
+---
 
 
 

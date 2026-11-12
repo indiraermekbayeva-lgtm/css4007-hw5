@@ -1,3 +1,27 @@
+My Implementation
+
+This project was completed as part of the Artificial Intelligence course at Narxoz University.
+
+I independently implemented the following features:
+
+Built an IT helpdesk workflow using Python and LangGraph.
+
+Added conditional routing for different user requests.
+
+Integrated tools for troubleshooting and checking service status.
+
+Implemented persistent conversation memory using SQLite.
+
+Created automated tests using pytest.
+
+Technologies: Python, LangGraph, LangChain, SQLite, pytest.
+
+
+
+
+
+
+
 # HW5 — Build a university IT helpdesk with LangGraph
 
 **CSS-4007 · Artificial Intelligence**  
